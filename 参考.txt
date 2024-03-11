@@ -6,3 +6,5 @@ https://zenn.dev/tomi/articles/2020-10-07-go-web5
 goでWebサービス No.5(form)
 https://zenn.dev/show_yeah/articles/bece10823d182c
 【入門】Goでwebsocketを使ったリアルタイムなチャットを実装してみた
+https://qiita.com/TetsuyaFukunaga/items/4c83a8dedd34e65ffbdc
+GoでWebSocketを使いチャットサーバー構築
