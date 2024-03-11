@@ -1,0 +1,8 @@
+https://qiita.com/sususuAI/items/ad4806c086b02a25d45d UI
+ゼロから作る、簡単WebチャットUIの作り方
+https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/04.1.html
+フォームの入力を処理する
+https://zenn.dev/tomi/articles/2020-10-07-go-web5
+goでWebサービス No.5(form)
+https://zenn.dev/show_yeah/articles/bece10823d182c
+【入門】Goでwebsocketを使ったリアルタイムなチャットを実装してみた

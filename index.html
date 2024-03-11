@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/bmess.css" />
+    <title>Chat App</title>
+
+  </head>
+  <style>
+#container{
+    height:90%
+}
+#chat {
+    text-align: left;
+    color:#000;
+    background: #ddd;
+    width: 80%;
+    height:85%;
+    min-height: 300px;
+    padding: 10px;
+    font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+    font-size: small;
+  }
+#chse_btn{
+        width: 132px;
+        height: 48px;
+        font-size: 16px;
+        line-height: 3em;
+        float: left;
+        color: #fff;
+        font-weight: bold;
+        background: #bcbcbc;
+        text-align: center;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+    }
+#send_btn {
+    width: 72px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 3em;
+    color: #fff;
+    font-weight: bold;
+    background: #bcbcbc;
+    text-align: center;
+    border: 1px solid #bbb;
+    border-radius: 4px;/*角丸*/
+    box-sizing: border-box;
+}
+#send_btn:hover {
+        background: #13178E; 
+        cursor: pointer;
+    }
+#message{
+        width: calc(100% - 80px);
+        line-height: 16px;
+        height: 48px;
+        padding: 14px 6px 0px 6px;
+        border: 1px solid #ccc;
+        border-radius: 4px;/*角丸*/
+        text-align: left;/*文字を左寄せ*/
+        box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2) inset;/*内側に影を入れてテキストエリアらしくした*/
+        box-sizing: border-box;/*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
+
+    }
+</style>
+
+  <body id ="container">
+
+    <center >
+      <h3>Chat App</h3>
+      <pre id="chat">
+        
+      </pre>
+      <img id="displayed-image" > 
+      
+         
+   
+      <label id="title"></label>
+      
+
+      <select name="kind" id ="chse_btn">
+        <option value="ユーザー1">ユーザー１</option>
+        <option value="ユーザー2">ユーザー２</option>
+        <option value="ユーザー3">ユーザー３</option>
+        <option value="ユーザー4">ユーザー４</option>
+        <option value="URL">URL</option>
+        </select>
+
+        <input type="text" id ="message" name="value" placeholder ="Aa">
+        <input type="submit" value="▶" id="send_btn" onclick="displayNames()">
+
+    </center>
+
+    <script>
+      // websocketコネクション作成
+      var ws = new WebSocket("ws://" + window.location.host + "/ws");
+
+      // 現在時間を取得
+      var now = function () {
+        return new Date().toLocaleString();
+      };
+
+      // サーバーから他ユーザーのメッセージが送られてきた際に、チャット画面へ表示させる。
+      ws.onmessage = function (msg) {
+        console.log(msg);
+        var line =  now() + " : " + msg.data + "\n";
+        chat.innerText += line;
+      };
+
+      // 入力フォームにテキストを入力して送信ボタンが押された時、入力内容をサーバーへ送信する。
+      function displayNames(){
+        var name = document.getElementById("chse_btn").value;
+        if(name=="URL"){
+          var text = document.getElementById("message").value;
+          document.getElementById("displayed-image").width = "400";
+          document.getElementById("displayed-image").src = text;
+          document.getElementById("displayed-image").height = "200";
+        }
+        else{
+          document.getElementById("title").innerText = name;
+          var text = document.getElementById("message");
+            if (text.value !== "") {
+            ws.send("(" + name + ") -> " + text.value);
+            text.value = "";    
+         };
+        }
+     }
+    
+    </script>
+
+  </body>
+</html>
